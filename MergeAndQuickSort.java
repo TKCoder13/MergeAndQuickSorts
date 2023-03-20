@@ -69,7 +69,7 @@ public class MergeAndQuickSort {
     }
 
     public static int[] quickSort(int[] list, int first, int last) {
-        counter = 0;
+
         if (first < last) {
             int pivot = pivotList(list, first, last);
             quickSort(list, first, pivot - 1);
@@ -78,9 +78,35 @@ public class MergeAndQuickSort {
         return list;
     }
 
-    public static int pivotList(int[] list, int first, int last) { // pivot = first index of list
-        int pivotValue = list[first];
+    // public static int pivotList(int[] list, int first, int last) { // pivot = first index of list
+        
+    //     int pivotValue = list[first];
+    //     int pivotPoint = first;
+        
+    //     for (int i = first; i < last; i++) {
+    //         counter++;
+    //         if (list[i] < pivotValue) {
+    //             pivotPoint++;
+    //             //swap
+    //             int temp = list[pivotPoint];
+    //             list[pivotPoint] = list[i];
+    //             list[i] = temp;
+    //         }
+    //     }
+    //     //swap first and pivotPoint to complete the sorting
+    //     int swapTemp = list[first];
+    //     list[first] = list[pivotPoint];
+    //     list[pivotPoint] = swapTemp;
+    //     return pivotPoint;
+    // }
+
+    public static int pivotList(int[] list, int first, int last) { // pivot = random index of list
+        
+        int range = last - first;
+        int random = (int) (Math.random() * range) + first;
+        int pivotValue = list[random];
         int pivotPoint = first;
+        
         for (int i = first; i < last; i++) {
             counter++;
             if (list[i] < pivotValue) {
@@ -89,14 +115,37 @@ public class MergeAndQuickSort {
                 int temp = list[pivotPoint];
                 list[pivotPoint] = list[i];
                 list[i] = temp;
+                
             }
         }
-        //swap first and pivotPoint to complete the sorting
-        int swapTemp = list[first];
-        list[first] = list[pivotPoint];
+        //swap random and pivotPoint to complete the sorting
+        int swapTemp = list[random];
+        list[random] = list[pivotPoint];
         list[pivotPoint] = swapTemp;
         return pivotPoint;
     }
+
+    // public static int pivotList(int[] list, int first, int last) { // pivot = last index of list
+    
+    //     int pivotValue = list[last];
+    //     int pivotPoint = last;
+        
+    //     for (int i = first; i < last; i++) {
+    //         counter++;
+    //         if (list[i] < pivotValue) {
+    //             pivotPoint--;
+    //             //swap
+    //             int temp = list[pivotPoint];
+    //             list[pivotPoint] = list[i];
+    //             list[i] = temp;
+    //         }
+    //     }
+    //     //swap last and pivotPoint to complete the sorting
+    //     int swapTemp = list[last];
+    //     list[last] = list[pivotPoint];
+    //     list[pivotPoint] = swapTemp;
+    //     return pivotPoint;
+    // }
 
     public static void main(String args[]) {
         // int[] list = {6,2,4,7,1,3,8,5};
@@ -128,11 +177,17 @@ public class MergeAndQuickSort {
             for (int j = 0; j < size; j++) {
                 list[j] = j;
             }
+            counter = 0;
             quickSort(list, 0, list.length - 1);
-            System.out.print(size + "\t\t" + counter + "\t\t");
+            if (i < 13) {
+                System.out.print(size + "\t\t" + counter + "\t\t");
+            } else {
+                System.out.print(size + "\t\t" + counter + "\t");
+            }
 
             //Random
             shuffle(list);
+            counter = 0;
             quickSort(list, 0, list.length - 1);
             if (i < 13) {
                 System.out.print(counter + "\t\t");
@@ -145,6 +200,7 @@ public class MergeAndQuickSort {
             for (int j = size - 1; j >= 0; j--) {
                 list[j] = j;
             }
+            counter = 0;
             quickSort(list, 0, list.length - 1);
             System.out.println(counter);
         }
